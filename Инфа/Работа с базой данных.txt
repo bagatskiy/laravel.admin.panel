@@ -1,0 +1,73 @@
+order
+
+страна - country
+тип обработки - processing
+тип расчета - calculation
+имя и фамилия - first-name
+телефон - phone
+почта - email
+адрес - address
+способ доставки - delivery
+количество - quantity
+сумма - amount
+сообщение - message
+
+
+Установка проекта
+composer create-project --prefer-dist laravel/laravel blog
+
+Устанавливаем плагин дебаг бар
+composer require barryvdh/laravel-debugbar --dev
+помле установки нужно перейти в файл config/app.php
+устанавливаем эту строчку в этом файле
+Barryvdh\Debugbar\ServiceProvider::class,
+и проверяем что бы в файле .env стояло APP_DEBUG=true
+
+Устанавливаем плагин помощник среды разработки
+composer require --dev barryvdh/laravel-ide-helper
+помле установки нужно перейти в файл config/app.php
+устанавливаем эту строчку в этом файле
+Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+Далее в файле composer.json в конца в масиве scripts прописываем новый масив:
+ "post-update-cmd": [
+     "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+     "php artisan ide-helper:generate",
+     "php artisan ide-helper:meta"       
+ ]
+команда для консоли которая запускает этот плагин
+php artisan ide-helper:generate
+
+Очистка кеша:
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan view:clear
+
+php artisan serve запуск проекта
+
+подключаем созданую базу данных в файле .env
+создание таблиц базы данных в Ларавел с помощью миграции,сначала создается модель и потом делается для нее миграция
+php artisan make:model Post -m  создание новой модели таблиц,в папке database\migrations создалась миграция
+в каторой мы можем создавать новые таблицы для базы данных и связываем новые таблицы с таблицами users
+
+php artisan migrate создание таблиц
+
+php artisan migrate:fresh   удаляет старые таблицы и создает новые
+
+php artisan migrate:fresh --seed удаляет старые таблицы и создает новые с наполниными данными на основании правил из файла seeder
+если в seeds/seeder не будет никаких написано правил то создадутся пустые таблички
+
+создаем фабрику фейковых записей
+php artisan make:factory PostFactory --model=Post   создаем фейковые записи
+
+php artisan make:controller PostController создаем контроллер
+
+php artisan make:controller PostController -r создание контролера с 7 методами
+
+У кого проблемы с миграциями "Class RolesTableSeeder not found" выполните команду composer dump-autoload. (для тех, кто просто скопировал seeds, а не создавал их через artisan.
+
+php artisan storage:link связываем папку storage глобальную с локальной
+
+php artisan make:request PostRequest создаем вайл для описания валидации
+
+php artisan make:auth подключение авторизации
